@@ -1,34 +1,32 @@
 package org.test.saas.common.impl.emp;
 
 import org.test.saas.common.*;
+import org.test.saas.utils.HttpClientUtil;
 
-public class Login implements BaseInterface{
-	private String userName;
-	private String password;
-	private String host;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
 
-	public void setUserName(String userName){
-		this.userName = userName;
-	}
-	public String getUserName(){
-		return this.userName;
-	}
-	public void setPassword(String password){
-		this.password = password;
-	}
-	public String getPassword(){
-		return this.password;
-	}
-	public void setHost(String name){
-		this.host = host;
-	}
-	public String getHost(){
-		return this.host;
-	}
+import java.util.*;
 
-	public String[] doing(){
-		String url = getHost() + "/saas/emp/Login.ajax";
+public class Login{
+	
+	
+
+	public JSONObject doing(){
+
+		HttpClientUtil http = HttpClientUtil.getInstance();
+		String url = "/saas/emp/Login.ajax";
+		Map<String,String> formDate = new HashMap<>();
+		formDate.put("shopName","凯德测试");
+		formDate.put("empCode","001");
+		formDate.put("empPWD","8888");
+		formDate.put("clientType","PC_Web");
+		formDate.put("clientVersion","POS_SaaS_V1");
 		
-		
+		String response = http.sendHttpPost(url,formDate);
+		System.out.println(response);
+		JSONObject jsonObj = JSON.parseObject(response);
+		return jsonObj;
 	}
 }
