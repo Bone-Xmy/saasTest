@@ -1,4 +1,4 @@
-package org.test.saas.utils;
+package org.saas.qa.utils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,17 +17,17 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
- 
- 
+
 public class HttpClientUtil {
-    private RequestConfig requestConfig = RequestConfig.custom()
+	private RequestConfig requestConfig = RequestConfig.custom()
             .setSocketTimeout(15000)
             .setConnectTimeout(15000)
             .setConnectionRequestTimeout(15000)
             .build();
  
     private static HttpClientUtil instance = null;
-    private String host = "http://127.0.0.1:8080";
+    //private String host = "http://127.0.0.1:8080";
+    private String host = "http://192.168.1.174:8080";
     
     private HttpClientUtil(){}
     public static HttpClientUtil getInstance(){
@@ -165,6 +165,4 @@ public class HttpClientUtil {
         }
         return responseContent;
     }
- 
- 
 }
