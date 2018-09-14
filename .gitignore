@@ -27,3 +27,9 @@ hs_err_pid*
 .DS_Store
 web.xml
 build.xml
+.classpath
+.settings/*
+*.sys
+target/*
+.project
+

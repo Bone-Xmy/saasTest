@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
  
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -14,6 +15,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -26,8 +28,8 @@ public class HttpClientUtil {
             .build();
  
     private static HttpClientUtil instance = null;
-    //private String host = "http://127.0.0.1:8080";
-    private String host = "http://192.168.1.174:8080";
+    private String host = "http://127.0.0.1:8080";
+    //private String host = "http://192.168.1.174:8080";
     
     private HttpClientUtil(){}
     public static HttpClientUtil getInstance(){
@@ -83,6 +85,28 @@ public class HttpClientUtil {
         }
         return sendHttpPost(httpPost);
     }
+    
+    /**
+     * 发送 post请求
+     * @param httpUrl 地址
+     * @param maps 参数
+     * @param cookie cookie
+     */
+    public String sendHttpPost(String httpUrl, Map<String, String> maps,String cookie) {
+        HttpPost httpPost = new HttpPost(host + httpUrl);// 创建httpPost
+        // 创建参数队列
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        for (String key : maps.keySet()) {
+            nameValuePairs.add(new BasicNameValuePair(key, maps.get(key)));
+        }
+        try {
+            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
+            httpPost.setHeader("Cookie","IDHTTPSESSIONID=" + cookie);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sendHttpPost(httpPost);
+    }
  
  
     /**
@@ -97,8 +121,15 @@ public class HttpClientUtil {
         String responseContent = null;
         try {
             // 创建默认的httpClient实例.
-            httpClient = HttpClients.createDefault();
-            httpPost.setConfig(requestConfig);
+            //httpClient = HttpClients.createDefault();
+            //httpPost.setConfig(requestConfig);
+
+              //使用fiddler代理
+            HttpHost proxy = new HttpHost("localhost",8888);
+            RequestConfig config = RequestConfig.custom().setProxy(proxy).setConnectTimeout(10000).setSocketTimeout(15000).build();
+            httpClient= HttpClientBuilder.create().setDefaultRequestConfig(config).build();
+            
+            
             // 执行请求
             response = httpClient.execute(httpPost);
             entity = response.getEntity();
