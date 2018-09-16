@@ -17,4 +17,12 @@ public class OrderPay {
 	public Double getDebitAmount(){
 		return this.debitAmount;
 	}
+	
+	@Override
+	public String toString() {
+		return "payLst{" + 
+				"paySubjectName='" + '\'' +
+				"debitAmount=" + debitAmount +
+				'}';
+	}
 }

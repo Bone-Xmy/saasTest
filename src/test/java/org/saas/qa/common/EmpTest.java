@@ -20,11 +20,11 @@ public class EmpTest{
 	@Test
 	public void loginTest(){
 		Map<String,String> formDate = new HashMap<>();
-		formDate.put("shopName","凯德测试");
+		//formDate.put("shopName","凯德测试");
 		formDate.put("empCode","001");
 		formDate.put("empPWD","8888");
-		formDate.put("clientType","PC_Web");
-		formDate.put("clientVersion","POS_SaaS_V1");
+		//formDate.put("clientType","PC_Web");
+		//formDate.put("clientVersion","POS_SaaS_V1");
 		HttpClientUtil http = HttpClientUtil.getInstance();
 		String response = http.sendHttpPost(login,formDate);
 		JSONObject jsonObj = JSON.parseObject(response);

@@ -1,5 +1,7 @@
 package org.saas.qa.utils.saasBeans;
 
+import java.util.List;
+
 public class OrderMaster {
 	private String saasOrderKey;
 	private String empCode;
@@ -19,8 +21,9 @@ public class OrderMaster {
 	private String invoiceTaxRate;
 	private String saasOrderRemark;
 	
-	//private OrderFood orderFood;
-	//private OrderPay orderPay;
+	//如果不是数组直接用对象就行
+	private List<OrderFood> foodLst;
+	private List<OrderPay> payLst;
 
 	//setter
 	public void setSaasOrderKey(String saasOrderKey){
@@ -73,5 +76,15 @@ public class OrderMaster {
 	}
 	public void setSaasOrderRemark(String saasOrderRemark){
 		this.saasOrderRemark = saasOrderRemark;
+	}
+	
+	@Override
+	public String toString() {
+		 return "{saasOrderKey" + saasOrderKey + 
+	                "empCode='" + empCode + '\'' +
+	                ", empName=" + empName + '\'' +
+	                ", course=" + payLst +
+	                ", students=" + foodLst +
+	                '}';
 	}
 }

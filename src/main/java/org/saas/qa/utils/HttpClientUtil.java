@@ -29,7 +29,7 @@ public class HttpClientUtil {
  
     private static HttpClientUtil instance = null;
     private String host = "http://127.0.0.1:8080";
-    //private String host = "http://192.168.1.174:8080";
+   // private String host = "http://192.168.1.174:8080";
     
     private HttpClientUtil(){}
     public static HttpClientUtil getInstance(){
@@ -120,12 +120,14 @@ public class HttpClientUtil {
         HttpEntity entity = null;
         String responseContent = null;
         try {
+			/*
             // 创建默认的httpClient实例.
-            //httpClient = HttpClients.createDefault();
-            //httpPost.setConfig(requestConfig);
-
+            httpClient = HttpClients.createDefault();
+            httpPost.setConfig(requestConfig);*/
+        	
               //使用fiddler代理
-            HttpHost proxy = new HttpHost("localhost",8888);
+			  String localhost = "192.168.4.67";
+            HttpHost proxy = new HttpHost(localhost,8888);
             RequestConfig config = RequestConfig.custom().setProxy(proxy).setConnectTimeout(10000).setSocketTimeout(15000).build();
             httpClient= HttpClientBuilder.create().setDefaultRequestConfig(config).build();
             

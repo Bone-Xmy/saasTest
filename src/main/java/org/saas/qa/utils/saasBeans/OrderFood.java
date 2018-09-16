@@ -17,4 +17,12 @@ public class OrderFood {
 	public String getFoodUnit(){
 		return this.foodUnit;
 	}
+	
+	@Override
+	public String toString() {
+		return "foodLst{" + 
+				"foodName='" + foodName + '\'' + 
+				"foodUnit='" + foodUnit + 
+				'}';
+	}
 }
